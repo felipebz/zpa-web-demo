@@ -1,0 +1,25 @@
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  GRADLE_USER_HOME: $(Pipeline.Workspace)/.cache/.gradle
+  SONAR_USER_HOME: $(Pipeline.Workspace)/.cache/.sonar
+
+steps:
+  - task: Cache@2
+    inputs:
+      key: 'gradle | "$(Agent.OS)" | **/build.gradle.kts'
+      restoreKeys: |
+        gradle | "$(Agent.OS)"
+        gradle
+      path: $(Pipeline.Workspace)/.cache
+
+  - task: Gradle@2
+    inputs:
+      jdkVersionOption: 1.17
+      tasks: "build"
+      options: '--build-cache'
+
+  - script: |
+      # stop the Gradle daemon to ensure no files are left open (impacting the save cache operation later)
+      ./gradlew --stop
