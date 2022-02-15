@@ -13,10 +13,16 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
 	mavenCentral()
+	mavenLocal()
+	maven {
+		url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+	}
 }
 
 dependencies {
 	implementation(project(":frontend"))
+	implementation("com.felipebz.zpa:zpa-core:3.2.0-SNAPSHOT")
+	implementation("com.felipebz.zpa:zpa-checks:3.2.0-SNAPSHOT")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
