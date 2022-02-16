@@ -53,7 +53,7 @@ end;`;
         return {
           range: new monaco.Range(issue.startLine, issue.startColumn, issue.endLine, issue.endColumn),
           options: {
-            inlineClassName: 'myInlineDecoration'
+            inlineClassName: 'bg-red-300'
           },
           message: issue.message
         }
